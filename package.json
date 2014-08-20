@@ -1,6 +1,6 @@
 {
   "name": "npm-top-md",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "author": "Michał Budzyński <michal@virtualdesign.pl>",
   "repository": "git@github.com:michalbe/npm-top-md.git",
   "devDependencies": {
@@ -9,7 +9,7 @@
     "precommit-hook": "^1.0.7"
   },
    "bin": {
-     "npmtop": "./bin/cli.js"
+     "npm-top-md": "./bin/cli.js"
   },
   "scripts": {
     "test": "node tests/npm-top-md-tests.js",
