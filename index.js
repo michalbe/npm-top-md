@@ -3,22 +3,29 @@
 var npmtop = require('./npmtop');
 var nas = require('npm-author-scrape');
 var gravatar = require('gravatar');
-
+var each = require('async').each;
+var authors = [];
 var ntm = function() {
   npmtop(function(err, all){
-    all.forEach(function(us){
-      console.log(us.slice(0, 256));
-    });
+    authors = all.slice(0, 256);
+    each(authors, function(user, cb) {
+      getGravatar(user.author, function(gravURL){
+        user.gravatar = gravURL;
+        cb();
+      });
+    }, generateList);
   });
 };
 
-var getAuthorData = function(name, cb){
+var getGravatar = function(name, cb){
   nas(name, function(user) {
-    console.log(gravatar.url(user.email, {s: '200', r: 'pg', d: '404'}));
+    cb(gravatar.url(user.email, {s: '30', r: 'pg', d: '404'}));
   });
 };
 
-getAuthorData('michalbe');
+var generateList = function() {
+  console.log(authors);
+};
 
-//ntm();
+ntm();
 module.exports = ntm;
