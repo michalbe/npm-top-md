@@ -2,4 +2,6 @@
 
 var ntm = function() {
 
-}
+};
+
+module.exports = ntm;
