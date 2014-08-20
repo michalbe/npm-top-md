@@ -1,6 +1,8 @@
 'use strict';
 
 var npmtop = require('./npmtop');
+var nas = require('npm-author-scrape');
+var gravatar = require('gravatar');
 
 var ntm = function() {
   npmtop(function(err, all){
@@ -10,9 +12,13 @@ var ntm = function() {
   });
 };
 
-// var getAuthorData = function(name){
-//
-// };
+var getAuthorData = function(name, cb){
+  nas(name, function(user) {
+    console.log(gravatar.url(user.email, {s: '200', r: 'pg', d: '404'}));
+  });
+};
 
-ntm();
+getAuthorData('michalbe');
+
+//ntm();
 module.exports = ntm;

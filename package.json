@@ -13,6 +13,8 @@
     "lint": "node node_modules/jshint/bin/jshint ."
   },
   "dependencies": {
+    "gravatar": "^1.0.6",
+    "npm-author-scrape": "^1.0.1",
     "request": "^2.40.0"
   }
 }
