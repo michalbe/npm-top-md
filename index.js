@@ -14,7 +14,7 @@ var ntm = function() {
     each(authors, function(user, cb) {
       getGravatar(user.author, function(npmAuthorData){
         user.gravatar = npmAuthorData.gravURL;
-        user.fullName = npmAuthorData.name;
+        user.fullName = npmAuthorData.name || '';
         cb();
       });
     }, generateList);
@@ -44,7 +44,7 @@ var generateList = function() {
     } else {
       console.log('done!');
     }
-  })
+  });
 };
 
 var generateOneRow = function(author){
@@ -53,8 +53,8 @@ var generateOneRow = function(author){
          '">' + author.author +
          '</a> (' + author.fullName +
          ')</td><td>' + author.packages +
-         '</td><td></td>' + ' Location ' +
-         '<td><img width="30" height="30" src="' + author. gravatr +
+         '</td><td>' + ' Location ' + '</td>' +
+         '<td><img width="30" height="30" src="' + author.gravatr +
          '"></td></tr>';
 };
 
