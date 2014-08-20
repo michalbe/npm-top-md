@@ -19,7 +19,7 @@ var ntm = function() {
         user.location = '';
         if (npmAuthorData.github) {
           gv(user.author, function(err, data){
-            if (!err){
+            if (!err && data) {
               user.location = data.homeLocation;
               user.company = data.worksFor;
             }
