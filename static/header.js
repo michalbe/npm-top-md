@@ -2,7 +2,7 @@
 
 module.exports = ['# Top NPM contributors by number of packages',
 '',
-'List generated using [NPM-TOP-MD](https://github.com/michalbe/npm-top-md)' +
+'List generated using [NPM-TOP-MD](https://www.npmjs.org/package/npm-top-md)' +
 ' package, inspired by [most active github users](https://gist.github.com/pa' +
 'ulmillr/2657075) list. I\'ll also try to update it once a week.',
 '<table cellspacing="0"><thead>',
