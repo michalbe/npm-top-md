@@ -5,9 +5,10 @@ var nas = require('npm-author-scrape');
 var gravatar = require('gravatar');
 var each = require('async').each;
 var fs = require('fs');
-//var path = process.cwd();
-
+var gv = require('github-vcard');
+var path = process.cwd();
 var authors = [];
+
 var ntm = function() {
   npmtop(function(err, all){
     authors = all.slice(0, 256);
@@ -15,7 +16,18 @@ var ntm = function() {
       getGravatar(user.author, function(npmAuthorData){
         user.gravatar = npmAuthorData.gravURL;
         user.fullName = npmAuthorData.name || '';
-        cb();
+        user.location = '';
+        if (npmAuthorData.github) {
+          gv(user.author, function(err, data){
+            if (!err){
+              user.location = data.homeLocation;
+              //console.log('data.location', data.location);
+            }
+            cb();
+          });
+        } else {
+          cb();
+        }
       });
     }, generateList);
   });
@@ -25,6 +37,7 @@ var getGravatar = function(name, cb) {
   nas(name, function(user) {
     cb({
       name: user.full_name,
+      github: user.github || '',
       gravURL: gravatar.url(user.email, {s: '30', r: 'pg', d: '404'})
     });
   });
@@ -38,7 +51,7 @@ var generateList = function() {
   var header = require('./static/header');
   var footer = require('./static/footer');
 
-  fs.writeFile('./LIST.md', header + content + footer, function(err){
+  fs.writeFile(path + '/LIST.md', header + content + footer, function(err){
     if (err) {
       console.log('LYPA', err);
     } else {
@@ -51,10 +64,10 @@ var generateOneRow = function(author){
   return '<tr><th scope="row">' + author.rank +
          '</th><td><a href="http://npmjs.org/~' + author.author +
          '">' + author.author +
-         '</a> (' + author.fullName +
-         ')</td><td>' + author.packages +
-         '</td><td>' + ' Location ' + '</td>' +
-         '<td><img width="30" height="30" src="' + author.gravatr +
+         '</a></td><td>' + author.fullName +
+         '</td><td>' + author.packages +
+         '</td><td>' + author.location + '</td>' +
+         '<td><img width="30" height="30" src="' + author.gravatar +
          '"></td></tr>';
 };
 
