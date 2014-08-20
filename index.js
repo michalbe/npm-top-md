@@ -51,13 +51,17 @@ var generateList = function() {
   var header = require('./static/header');
   var footer = require('./static/footer');
 
-  fs.writeFile(path + '/TOP-NPM-CONTRIBUTORS.md', header + content + footer, function(err){
-    if (err) {
-      console.log('Error: ', err);
-    } else {
-      console.log('File saved in ' + path + '/TOP-NPM-CONTRIBUTORS.md');
+  fs.writeFile(
+    path + '/TOP-NPM-CONTRIBUTORS.md',
+    header + content + footer,
+    function(err){
+      if (err) {
+        console.log('Error: ', err);
+      } else {
+        console.log('File saved in ' + path + '/TOP-NPM-CONTRIBUTORS.md');
+      }
     }
-  });
+  );
 };
 
 var generateOneRow = function(author){
