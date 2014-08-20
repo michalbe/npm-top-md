@@ -10,9 +10,9 @@ var ntm = function() {
   });
 };
 
-var getAuthorData = function(name){
-  
-};
+// var getAuthorData = function(name){
+//
+// };
 
 ntm();
 module.exports = ntm;
