@@ -21,7 +21,7 @@ var ntm = function() {
           gv(user.author, function(err, data){
             if (!err){
               user.location = data.homeLocation;
-              //console.log('data.location', data.location);
+              user.company = data.worksFor;
             }
             cb();
           });
@@ -38,7 +38,7 @@ var getGravatar = function(name, cb) {
     cb({
       name: user.full_name,
       github: user.github || '',
-      gravURL: gravatar.url(user.email, {s: '30', r: 'pg', d: '404'})
+      gravURL: gravatar.url(user.email, {s: '30', r: 'pg', d: 'retro'})
     });
   });
 };
@@ -51,25 +51,31 @@ var generateList = function() {
   var header = require('./static/header');
   var footer = require('./static/footer');
 
-  fs.writeFile(path + '/LIST.md', header + content + footer, function(err){
+  fs.writeFile(path + '/TOP-NPM-CONTRIBUTORS.md', header + content + footer, function(err){
     if (err) {
-      console.log('LYPA', err);
+      console.log('Error: ', err);
     } else {
-      console.log('done!');
+      console.log('File saved in ' + path + '/TOP-NPM-CONTRIBUTORS.md');
     }
   });
 };
 
 var generateOneRow = function(author){
-  return '<tr><th scope="row">' + author.rank +
+  var row = '<tr><th scope="row">' + author.rank +
          '</th><td><a href="http://npmjs.org/~' + author.author +
          '">' + author.author +
-         '</a></td><td>' + author.fullName +
-         '</td><td>' + author.packages +
+         '</a>';
+  if (author.fullName) {
+    row += ' (' + author.fullName + ')';
+  }
+
+  row += '</td><td>' + author.packages +
          '</td><td>' + author.location + '</td>' +
+         //'</td><td>' + author.company + '</td>' +
          '<td><img width="30" height="30" src="' + author.gravatar +
          '"></td></tr>';
+
+  return row;
 };
 
-ntm();
 module.exports = ntm;
