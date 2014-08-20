@@ -4,6 +4,9 @@ var npmtop = require('./npmtop');
 var nas = require('npm-author-scrape');
 var gravatar = require('gravatar');
 var each = require('async').each;
+var fs = require('fs');
+var path = process.cwd();
+
 var authors = [];
 var ntm = function() {
   npmtop(function(err, all){
@@ -18,6 +21,8 @@ var ntm = function() {
 };
 
 var getGravatar = function(name, cb){
+  path;
+  fs;
   nas(name, function(user) {
     cb(gravatar.url(user.email, {s: '30', r: 'pg', d: '404'}));
   });
